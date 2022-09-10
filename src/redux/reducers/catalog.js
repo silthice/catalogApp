@@ -1,19 +1,31 @@
 const INITIAL_STATE = {
-    animeList: [], favouriteList: []
+    airingList: [], completedList: [], upcomingList: [], favouriteList: []
   };
   
   const catalog = (state = INITIAL_STATE, action) => {
     switch (action.type) {
-      case 'APPEND_ANIME_LIST':
+      case 'APPEND_AIRING_LIST':
         return {
           ...state,
-          animeList: [...state.animeList, ...action.payload]
+          airingList: [...state.airingList, ...action.payload]
+        };
+        case 'APPEND_COMPLETED_LIST':
+          return {
+            ...state,
+            completedList: [...state.completedList, ...action.payload]
+          };
+              case 'APPEND_UPCOMING_LIST':
+        return {
+          ...state,
+          upcomingList: [...state.upcomingList, ...action.payload]
         };
   
       case 'RESET_ANIME_LIST':
         return {
           ...state,
-          animeList: []
+          upcomingList: [],
+          completedList: [],
+          airingList: []
         };
       case 'APPEND_FAVOURITE_LIST':
         return {

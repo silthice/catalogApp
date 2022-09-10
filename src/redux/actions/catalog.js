@@ -11,10 +11,23 @@ const resetFavouriteList = () => {
   };
 };
 
-const appendAnimeList = newAnimeList => {
-  console.log('check append', newAnimeList)
+const appendAiringList = newAnimeList => {
   return {
-    type: 'APPEND_ANIME_LIST',
+    type: 'APPEND_AIRING_LIST',
+    payload: newAnimeList
+  };
+};
+
+const appendCompletedList = newAnimeList => {
+  return {
+    type: 'APPEND_COMPLETED_LIST',
+    payload: newAnimeList
+  };
+};
+
+const appendUpcomingList = newAnimeList => {
+  return {
+    type: 'APPEND_UPCOMING_LIST',
     payload: newAnimeList
   };
 };
@@ -28,6 +41,8 @@ const resetAnimeList = () => {
 export default {
   appendFavouriteList,
   resetFavouriteList,
-  appendAnimeList,
+  appendAiringList,
+  appendCompletedList,
+  appendUpcomingList,
   resetAnimeList
 };

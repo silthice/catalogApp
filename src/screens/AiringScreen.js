@@ -7,13 +7,15 @@ import {getAnimeList} from '../services/api.js';
 import {useDispatch, useSelector} from 'react-redux';
 import {animeType} from '../utils/constant.js';
 import allActions from '../redux/actions/index.js';
+import Spinner from 'react-native-loading-spinner-overlay/lib';
 
 const AiringScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const [pageOffset, setPageOffset] = useState(1);
-  const animeList = useSelector(state => state.catalogState.animeList);
+  const [spinnerVisible, setSpinnerVisible] = useState(false);
+  const animeList = useSelector(state => state.catalogState.airingList);
 
   useEffect(() => {
     // initial 5 anime
@@ -21,7 +23,7 @@ const AiringScreen = () => {
       getData(pageOffset);
     }
 
-    console.log('check anime list', animeList);
+    // console.log('check anime list', animeList);
   }, [animeList]);
 
   function btnPrssed() {
@@ -31,18 +33,20 @@ const AiringScreen = () => {
   function getData(offset) {
     console.log('getData');
 
+    setSpinnerVisible(true)
+
     getAnimeList(dispatch, offset, animeType.AIRING)
       .then(res => {
         if (res) {
           // console.log('check res here', res)
-          dispatch(allActions.catalogActions.appendAnimeList(res));
+          dispatch(allActions.catalogActions.appendAiringList(res));
           // setSpinnerVisible(false);
         }
-        // setSpinnerVisible(false);
+        setSpinnerVisible(false);
       })
       .catch(err => {
         // console.log('getPokemonList error', err);
-        // setSpinnerVisible(false);
+        setSpinnerVisible(false);
       });
   }
 
@@ -51,12 +55,27 @@ const AiringScreen = () => {
     setPageOffset(pageOffset + 1);
   }
 
-  function renderAnimeCard(item) {
+  function viewAnime(item){
+    console.log('viewanime')
+    console.log(item)
+    navigation.navigate('AnimeDetailScreen', {item: item})
+  }
+
+  function renderAnimeCard(item, index) {
+
+    // Items should have image, name, rating, score and year 
     console.log('check item here', item.title);
+    console.log('check item here', item.images.jpg.image_url);
+    console.log('check item here', item.rating);
+    console.log('check item here', item.score);
+    console.log('check item here', item.year);
     return (
-      <View style={{height: 500, backgroundColor: 'red'}}>
+      <TouchableOpacity onPress={()=>viewAnime(item)}>
+ <View style={{height: 300, backgroundColor: 'red'}}>
         <Text>{item.title}</Text>
       </View>
+      </TouchableOpacity>
+     
     );
   }
 
@@ -69,7 +88,7 @@ const AiringScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View>
+      <View style={{}}>
         <FlatList
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
@@ -82,6 +101,8 @@ const AiringScreen = () => {
           onEndReachedThreshold={0}
         />
       </View>
+      <Spinner visible={spinnerVisible} />
+
     </SafeAreaView>
   );
 };
@@ -89,9 +110,9 @@ const AiringScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'yellow',
-    alignItems: 'center',
-    justifyContent: 'center'
+    backgroundColor: '#0E0E23',
+    // alignItems: 'center',
+    // justifyContent: 'center'
   }
 });
 
