@@ -7,12 +7,16 @@ import {getAnimeList} from '../services/api.js';
 import {useDispatch, useSelector} from 'react-redux';
 import {animeType} from '../utils/constant.js';
 import allActions from '../redux/actions/index.js';
+import Spinner from 'react-native-loading-spinner-overlay/lib';
+import Card from '../components/animeCard';
 
-const AiringScreen = () => {
+
+const UpcomingScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const [pageOffset, setPageOffset] = useState(1);
+  const [spinnerVisible, setSpinnerVisible] = useState(false);
   const animeList = useSelector(state => state.catalogState.upcomingList);
 
   useEffect(() => {
@@ -31,6 +35,8 @@ const AiringScreen = () => {
   function getData(offset) {
     console.log('getData');
 
+    setSpinnerVisible(true)
+
     getAnimeList(dispatch, offset, animeType.UPCOMING)
       .then(res => {
         if (res) {
@@ -38,11 +44,11 @@ const AiringScreen = () => {
           dispatch(allActions.catalogActions.appendUpcomingList(res));
           // setSpinnerVisible(false);
         }
-        // setSpinnerVisible(false);
+        setSpinnerVisible(false);
       })
       .catch(err => {
         // console.log('getPokemonList error', err);
-        // setSpinnerVisible(false);
+        setSpinnerVisible(false);
       });
   }
 
@@ -51,14 +57,14 @@ const AiringScreen = () => {
     setPageOffset(pageOffset + 1);
   }
 
+  function viewAnime(item){
+    console.log('viewanime')
+    console.log(item)
+    navigation.navigate('AnimeDetailScreen', {item: item})
+  }
+
   function renderAnimeCard(item, index) {
-    console.log('check item here', item.title);
-    console.log('check index here', index);
-    return (
-      <View style={{height: 500, backgroundColor: 'red'}}>
-        <Text>{item.title}</Text>
-      </View>
-    );
+    return <Card animeItem={item}></Card>;
   }
 
 
@@ -70,7 +76,7 @@ const AiringScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View>
+      <View style={{paddingHorizontal: 10}}>
         <FlatList
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
@@ -83,6 +89,8 @@ const AiringScreen = () => {
           onEndReachedThreshold={0}
         />
       </View>
+      <Spinner visible={spinnerVisible} />
+
     </SafeAreaView>
   );
 };
@@ -90,10 +98,10 @@ const AiringScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'yellow',
-    alignItems: 'center',
-    justifyContent: 'center'
+    backgroundColor: '#0E0E23',
+    // alignItems: 'center',
+    // justifyContent: 'center'
   }
 });
 
-export default AiringScreen;
+export default UpcomingScreen;

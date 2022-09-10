@@ -8,6 +8,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {animeType} from '../utils/constant.js';
 import allActions from '../redux/actions/index.js';
 import Spinner from 'react-native-loading-spinner-overlay/lib';
+import Card from '../components/animeCard';
+
 
 const AiringScreen = () => {
   const navigation = useNavigation();
@@ -62,21 +64,7 @@ const AiringScreen = () => {
   }
 
   function renderAnimeCard(item, index) {
-
-    // Items should have image, name, rating, score and year 
-    console.log('check item here', item.title);
-    console.log('check item here', item.images.jpg.image_url);
-    console.log('check item here', item.rating);
-    console.log('check item here', item.score);
-    console.log('check item here', item.year);
-    return (
-      <TouchableOpacity onPress={()=>viewAnime(item)}>
- <View style={{height: 300, backgroundColor: 'red'}}>
-        <Text>{item.title}</Text>
-      </View>
-      </TouchableOpacity>
-     
-    );
+    return <Card animeItem={item}></Card>;
   }
 
 
@@ -88,7 +76,7 @@ const AiringScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{}}>
+      <View style={{paddingHorizontal: 10}}>
         <FlatList
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
