@@ -1,7 +1,7 @@
 import catalogActions from './catalog';
 
 const allActions = {
-  catalogActions,
+  catalogActions
 };
 
 export default allActions;

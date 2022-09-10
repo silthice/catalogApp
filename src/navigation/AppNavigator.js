@@ -16,12 +16,11 @@ import DrawerNavigator from './DrawerNavigator';
 import AnimeDetailScreen from '../screens/AnimeDetailScreen';
 const Drawer = createDrawerNavigator();
 
-
 export default function NavigationStack() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerBackTitleVisible: false, headerShown: false }}>
+        <Stack.Navigator screenOptions={{headerBackTitleVisible: false, headerShown: false}}>
           <Stack.Screen name="MainScreen" component={DrawerNavigator} />
           <Stack.Screen name="AnimeDetailScreen" component={AnimeDetailScreen} />
         </Stack.Navigator>

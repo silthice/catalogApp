@@ -32,6 +32,13 @@ const appendUpcomingList = newAnimeList => {
   };
 };
 
+const setFavouriteList = newFavList => {
+  return {
+    type: 'SET_FAVOURITE_LIST',
+    payload: newFavList
+  };
+};
+
 const resetAnimeList = () => {
   return {
     type: 'RESET_ANIME_LIST'
@@ -44,5 +51,6 @@ export default {
   appendAiringList,
   appendCompletedList,
   appendUpcomingList,
+  setFavouriteList,
   resetAnimeList
 };

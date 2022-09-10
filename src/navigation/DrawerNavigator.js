@@ -14,37 +14,35 @@ import TabNavigator from './TabNavigator';
 import FavouriteScreen from '../screens/FavouriteScreen';
 const Drawer = createDrawerNavigator();
 
-
-
 const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
-    screenOptions={{
-      headerBackTitleVisible: false,
-      headerShown: false,
-      drawerActiveBackgroundColor: 'red',
-      drawerActiveTintColor: '#fff',
-      drawerLabelStyle: {
-        marginLeft: -15
-      },
-      swipeEnabled: true
-    }}>
-    <Drawer.Screen
-      name="MainScreen"
-      component={TabNavigator}
-      options={{
-        drawerIcon: ({color}) => <MaterialIcons name="home" size={30} color={color} />
-      }}
-    />
+      screenOptions={{
+        headerBackTitleVisible: false,
+        headerShown: false,
+        drawerActiveBackgroundColor: 'red',
+        drawerActiveTintColor: '#fff',
+        drawerLabelStyle: {
+          marginLeft: -15
+        },
+        swipeEnabled: true
+      }}>
+      <Drawer.Screen
+        name="MainScreen"
+        component={TabNavigator}
+        options={{
+          drawerIcon: ({color}) => <MaterialIcons name="home" size={30} color={color} />
+        }}
+      />
 
-    <Drawer.Screen
-      name="FavouriteScreen"
-      component={FavouriteScreen}
-      options={{
-        drawerIcon: ({color}) => <MaterialIcons name="favorite" size={30} color={color} />
-      }}
-    />
-  </Drawer.Navigator>
+      <Drawer.Screen
+        name="FavouriteScreen"
+        component={FavouriteScreen}
+        options={{
+          drawerIcon: ({color}) => <MaterialIcons name="favorite" size={30} color={color} />
+        }}
+      />
+    </Drawer.Navigator>
   );
 };
 

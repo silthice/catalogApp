@@ -26,5 +26,8 @@ export const globalStyles = StyleSheet.create({
     backgroundColor: '#D7D7D7',
     marginVertical: 8,
     marginHorizontal: Dimensions.get('window').width * 0.05
+  },
+  flex1: {
+    flex: 1
   }
 });

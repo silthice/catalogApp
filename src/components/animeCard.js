@@ -25,8 +25,10 @@ const CardComponent = props => {
   }
 
   return (
-    <TouchableOpacity onPress={viewAnimeDetail}>
-      <Card containerStyle={styles.cardContainerStyle} wrapperStyle={styles.containerWrapperStyle}>
+    <Card containerStyle={styles.cardContainerStyle} wrapperStyle={styles.containerWrapperStyle}>
+      <TouchableOpacity
+        style={[styles.cardContainerStyle, styles.containerWrapperStyle]}
+        onPress={viewAnimeDetail}>
         {/* <View style={styles.cardContainerStyle}> */}
         <View style={styles.imageContainer}>
           <Image
@@ -63,17 +65,17 @@ const CardComponent = props => {
               {animeScore ? (
                 <View style={globalStyles.flexDirectionRow}>
                   <Text style={styles.score}>{animeScore}</Text>
-                  <Text> / 10</Text>
+                  <Text style={styles.score}> / 10</Text>
                 </View>
               ) : (
-                <Text>To Be Confirmed</Text>
+                <Text style={styles.score}> To Be Confirmed</Text>
               )}
             </View>
           </View>
         </View>
         {/* </View> */}
-      </Card>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </Card>
   );
 };
 
@@ -81,7 +83,10 @@ const styles = StyleSheet.create({
   cardContainerStyle: {
     borderRadius: 5,
     height: 160,
-    padding: 0
+    padding: 0,
+    backgroundColor: '#192b34',
+    borderWidth: 0,
+    marginBottom: 10
   },
   containerWrapperStyle: {
     flexDirection: 'row',
@@ -95,7 +100,9 @@ const styles = StyleSheet.create({
   titleContainer: {
     height: 50
   },
-  otherDetailsContainer: {},
+  otherDetailsContainer: {
+    marginTop: 5
+  },
   image: {
     height: '90%',
     width: '90%',
@@ -108,22 +115,28 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: 'bold',
-    fontSize: 20
+    fontSize: 20,
+    color: '#fff'
   },
   rating: {
-    marginBottom: 5
+    marginBottom: 5,
+    color: '#fff'
   },
   score: {
-    marginBottom: 5
+    marginBottom: 5,
+    color: '#fff'
   },
   year: {
-    marginBottom: 5
+    marginBottom: 5,
+    color: '#fff'
   },
   rank: {
-    marginBottom: 5
+    marginBottom: 5,
+    color: '#fff'
   },
   label: {
-      fontWeight: 'bold'
+    fontWeight: 'bold',
+    color: '#fff'
   }
 });
 

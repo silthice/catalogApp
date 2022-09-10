@@ -10,7 +10,6 @@ import allActions from '../redux/actions/index.js';
 import Spinner from 'react-native-loading-spinner-overlay/lib';
 import Card from '../components/animeCard';
 
-
 const UpcomingScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -35,7 +34,7 @@ const UpcomingScreen = () => {
   function getData(offset) {
     console.log('getData');
 
-    setSpinnerVisible(true)
+    setSpinnerVisible(true);
 
     getAnimeList(dispatch, offset, animeType.UPCOMING)
       .then(res => {
@@ -57,16 +56,15 @@ const UpcomingScreen = () => {
     setPageOffset(pageOffset + 1);
   }
 
-  function viewAnime(item){
-    console.log('viewanime')
-    console.log(item)
-    navigation.navigate('AnimeDetailScreen', {item: item})
+  function viewAnime(item) {
+    console.log('viewanime');
+    console.log(item);
+    navigation.navigate('AnimeDetailScreen', {item: item});
   }
 
   function renderAnimeCard(item, index) {
     return <Card animeItem={item}></Card>;
   }
-
 
   useEffect(() => {
     if (pageOffset !== 1) {
@@ -90,7 +88,6 @@ const UpcomingScreen = () => {
         />
       </View>
       <Spinner visible={spinnerVisible} />
-
     </SafeAreaView>
   );
 };
@@ -98,7 +95,7 @@ const UpcomingScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0E0E23',
+    backgroundColor: '#0E0E23'
     // alignItems: 'center',
     // justifyContent: 'center'
   }
