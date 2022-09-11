@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import {StyleSheet, View, Button, SafeAreaView, FlatList, Text} from 'react-native';
+import {StyleSheet, View, Button, SafeAreaView, FlatList, Text, Dimensions} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {globalStyles} from '../utils/style.js';
 import {TouchableOpacity} from 'react-native-gesture-handler';
@@ -9,6 +9,9 @@ import {animeType} from '../utils/constant.js';
 import allActions from '../redux/actions/index.js';
 import Spinner from 'react-native-loading-spinner-overlay/lib';
 import Card from '../components/animeCard';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
+const screenHeight = Dimensions.get('window').height;
 
 const UpcomingScreen = () => {
   const navigation = useNavigation();
@@ -55,13 +58,7 @@ const UpcomingScreen = () => {
     console.log('load more');
     setPageOffset(pageOffset + 1);
   }
-
-  function viewAnime(item) {
-    console.log('viewanime');
-    console.log(item);
-    navigation.navigate('AnimeDetailScreen', {item: item});
-  }
-
+  
   function renderAnimeCard(item, index) {
     return <Card animeItem={item}></Card>;
   }
@@ -72,8 +69,21 @@ const UpcomingScreen = () => {
     }
   }, [pageOffset]);
 
+  function openDrawer(){
+    navigation.openDrawer()
+  }
+
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.headerContainer}>
+        <Text style={globalStyles.headerLabel}>Upcoming Anime List</Text>
+
+        <View style={styles.iconContainer}>
+          <TouchableOpacity onPress={()=>{openDrawer()}}>
+            <Ionicons name="menu" style={styles.iconStyle} />
+          </TouchableOpacity>
+        </View>
+      </View>
       <View style={{paddingHorizontal: 10}}>
         <FlatList
           showsHorizontalScrollIndicator={false}
@@ -96,8 +106,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#0E0E23'
-    // alignItems: 'center',
-    // justifyContent: 'center'
+  },
+  headerContainer: {
+    height: screenHeight * 0.035,
+    paddingHorizontal: 25,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  iconContainer: {
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    flex: 1
+  },
+  iconStyle: {
+    fontSize: 25,
+    color: '#F5F5F5'
   }
 });
 

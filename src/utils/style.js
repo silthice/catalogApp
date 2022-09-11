@@ -29,5 +29,10 @@ export const globalStyles = StyleSheet.create({
   },
   flex1: {
     flex: 1
+  },
+  headerLabel: {
+    fontSize: 25,
+    color: '#fff',
+    fontWeight: 'bold'
   }
 });
