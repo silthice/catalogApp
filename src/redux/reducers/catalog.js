@@ -26,20 +26,20 @@ const catalog = (state = INITIAL_STATE, action) => {
     case 'RESET_UPCOMING_LIST':
       return {
         ...state,
-        upcomingList: [],
+        upcomingList: []
       };
 
-      case 'RESET_COMPLETED_LIST':
-        return {
-          ...state,
-          completedList: [],
-        };
+    case 'RESET_COMPLETED_LIST':
+      return {
+        ...state,
+        completedList: []
+      };
 
-        case 'RESET_AIRING_LIST':
-          return {
-            ...state,
-            airingList: []
-          };
+    case 'RESET_AIRING_LIST':
+      return {
+        ...state,
+        airingList: []
+      };
     case 'APPEND_FAVOURITE_LIST':
       return {
         ...state,

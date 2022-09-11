@@ -7,11 +7,6 @@ import {globalStyles} from '../utils/style';
 const CardComponent = props => {
   const navigation = useNavigation();
   // Items should have image, name, rating, score and year
-//   console.log('check item here', props.animeItem.title);
-//   console.log('check item here', props.animeItem.images.jpg.image_url);
-//   console.log('check item here', props.animeItem.rating);
-//   console.log('check item here', props.animeItem.score);
-//   console.log('check item here', props.animeItem.year);
 
   const animeTitle = props.animeItem.title;
   const animeImg = props.animeItem.images.jpg.image_url;
@@ -47,17 +42,17 @@ const CardComponent = props => {
           <View style={styles.otherDetailsContainer}>
             <View style={globalStyles.flexDirectionRow}>
               <Text style={styles.label}>Year: </Text>
-              <Text style={styles.year}>{animeYear ? animeYear : 'TBC'}</Text>
+              <Text style={styles.year}>{animeYear || 'TBC'}</Text>
             </View>
 
             <View style={globalStyles.flexDirectionRow}>
               <Text style={styles.label}>Rank: </Text>
-              <Text style={styles.rank}>{animeRank ? animeRank : 'TBC'}</Text>
+              <Text style={styles.rank}>{animeRank || 'TBC'}</Text>
             </View>
 
             <View style={globalStyles.flexDirectionRow}>
               <Text style={styles.label}>Rating: </Text>
-              <Text style={styles.rating}>{animeRating ? animeRating : 'TBC'}</Text>
+              <Text style={styles.rating}>{animeRating || 'TBC'}</Text>
             </View>
 
             <View style={globalStyles.flexDirectionRow}>

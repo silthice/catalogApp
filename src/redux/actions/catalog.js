@@ -66,6 +66,5 @@ export default {
   setFavouriteList,
   resetAiringList,
   resetCompletedList,
-  resetUpcomingList,
-  resetFavouriteList
+  resetUpcomingList
 };

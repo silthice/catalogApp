@@ -1,13 +1,8 @@
 import * as React from 'react';
-import {Text, View} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import AiringScreen from '../screens/AiringScreen';
 import CompletedScreen from '../screens/CompletedScreen';
 import UpcomingScreen from '../screens/UpcomingScreen';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
-const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {

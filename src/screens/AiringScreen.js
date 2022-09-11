@@ -2,7 +2,6 @@ import {useNavigation} from '@react-navigation/native';
 import {
   StyleSheet,
   View,
-  Button,
   SafeAreaView,
   FlatList,
   Text,
@@ -37,13 +36,7 @@ const AiringScreen = () => {
     if (animeList && animeList.length < 1) {
       getData(pageOffset, searchText);
     }
-
-    // console.log('check anime list', animeList);
   }, [animeList]);
-
-  function btnPrssed() {
-    navigation.openDrawer();
-  }
 
   function getData(offset, searchText) {
     console.log('getData', offset, searchText);
@@ -54,28 +47,24 @@ const AiringScreen = () => {
       getAnimeList(dispatch, offset, animeType.AIRING)
         .then(res => {
           if (res) {
-            // console.log('check res here', res)
             dispatch(allActions.catalogActions.appendAiringList(res));
-            // setSpinnerVisible(false);
           }
           setSpinnerVisible(false);
         })
         .catch(err => {
-          // console.log('getPokemonList error', err);
+          console.log('getAnimeList error', err);
           setSpinnerVisible(false);
         });
     } else {
       searchAnimeList(dispatch, offset, animeType.AIRING, searchText)
         .then(res => {
           if (res) {
-            // console.log('check res here', res)
             dispatch(allActions.catalogActions.appendAiringList(res));
-            // setSpinnerVisible(false);
           }
           setSpinnerVisible(false);
         })
         .catch(err => {
-          // console.log('getPokemonList error', err);
+          console.log('search anime error', err);
           setSpinnerVisible(false);
         });
     }
@@ -134,7 +123,7 @@ const AiringScreen = () => {
   }
 
   function renderEmptyList() {
-    if (!spinnerVisible && pageOffset == 1) {
+    if (!spinnerVisible && pageOffset === 1) {
       return (
         <View
           style={{

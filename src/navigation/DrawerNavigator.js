@@ -1,11 +1,4 @@
 import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import rootReducer from '../redux/reducers/index';
-import {Provider} from 'react-redux';
-import {createStore} from 'redux';
-const Stack = createNativeStackNavigator();
-const store = createStore(rootReducer);
 
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
@@ -18,7 +11,7 @@ const Drawer = createDrawerNavigator();
 const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
-    drawerContent={props => <CustomDrawer {...props}/>}
+      drawerContent={props => <CustomDrawer {...props} />}
       screenOptions={{
         headerBackTitleVisible: false,
         headerShown: false,
@@ -27,7 +20,7 @@ const DrawerNavigator = () => {
         drawerInactiveTintColor: '#fff',
         drawerLabelStyle: {
           marginLeft: -15
-        }, 
+        },
         swipeEnabled: true
       }}>
       <Drawer.Screen

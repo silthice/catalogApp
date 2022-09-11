@@ -5,7 +5,6 @@ import {DrawerContentScrollView, DrawerItemList} from '@react-navigation/drawer'
 const screenHeight = Dimensions.get('window').height;
 
 const CustomDrawer = props => {
-
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#192b34'}}>
       <View style={styles.headerContainer}>
@@ -31,15 +30,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#fff'
   },
-  underline:{
-      borderWidth: 1,
-      width: '100%',
-      borderColor: '#fff',
-      marginVertical: 15
+  underline: {
+    borderWidth: 1,
+    width: '100%',
+    borderColor: '#fff',
+    marginVertical: 15
   },
   drawerContainer: {
     flex: 1,
-     marginTop: -screenHeight * 0.055
+    marginTop: -screenHeight * 0.055
   }
 });
 

@@ -1,6 +1,4 @@
 export const getAnimeList = async (dispatch, offset, type) => {
-  // const url = `https://pokeapi.co/api/v2/pokemon?limit=10&offset=${offset}`;
-
   const url = `https://api.jikan.moe/v4/top/anime?limit=5&page=${offset}&filter=${type}`;
 
   return fetch(url, {
@@ -12,7 +10,6 @@ export const getAnimeList = async (dispatch, offset, type) => {
   })
     .then(response => response.json())
     .then(json => {
-      //   console.log('check json here', json)
       return json.data;
     })
     .catch(err => {
@@ -21,8 +18,6 @@ export const getAnimeList = async (dispatch, offset, type) => {
 };
 
 export const getAnimeDetail = async (dispatch, id) => {
-  // const url = `https://pokeapi.co/api/v2/pokemon?limit=10&offset=${offset}`;
-
   const url = `https://api.jikan.moe/v4/anime/${id}`;
 
   return fetch(url, {
@@ -34,7 +29,6 @@ export const getAnimeDetail = async (dispatch, id) => {
   })
     .then(response => response.json())
     .then(json => {
-      // console.log('check json here', json)
       return json.data;
     })
     .catch(err => {
@@ -43,7 +37,6 @@ export const getAnimeDetail = async (dispatch, id) => {
 };
 
 export const searchAnimeList = async (dispatch, offset, type, searchText) => {
-
   const url = `https://api.jikan.moe/v4/anime?page=${offset}&limit=5&filter=${type}&q=${searchText}`;
 
   return fetch(url, {
@@ -55,22 +48,9 @@ export const searchAnimeList = async (dispatch, offset, type, searchText) => {
   })
     .then(response => response.json())
     .then(json => {
-      //   console.log('check json here', json)
       return json.data;
     })
     .catch(err => {
       console.log('get animet list err', err);
     });
-};
-
-
-
-const asyncLoop = async (dispatch, newPokemonList) => {
-  const allResults = [];
-
-  for (const pokemon of newPokemonList) {
-    const eachPokemonResult = await getPokemonPartialDetail(dispatch, pokemon);
-    allResults.push(eachPokemonResult);
-  }
-  return allResults;
 };

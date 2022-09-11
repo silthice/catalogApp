@@ -2,7 +2,6 @@ import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {
   StyleSheet,
   View,
-  Button,
   SafeAreaView,
   FlatList,
   TouchableOpacity,
@@ -32,26 +31,26 @@ const FavouriteScreen = () => {
     }
   }, [favouriteList, isFocus]);
 
-  // useEffect(()=>{
-  //   console.log('isFocus', isFocus)
-
-  // }, [isFocus])
-
   function renderAnimeCard(item, index) {
     return <Card animeItem={item}></Card>;
   }
 
-  function openDrawer(){
-    navigation.openDrawer()
+  function openDrawer() {
+    navigation.openDrawer();
   }
 
-  function renderEmptyList(){
+  function renderEmptyList() {
     return (
-
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: screenHeight*.8}}>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: screenHeight * 0.8
+        }}>
         <Text style={{color: '#fff'}}>Add more anime to favourite list !</Text>
       </View>
-    )
+    );
   }
 
   return (
@@ -60,7 +59,10 @@ const FavouriteScreen = () => {
         <Text style={globalStyles.headerLabel}>Favourite List</Text>
 
         <View style={styles.iconContainer}>
-          <TouchableOpacity onPress={()=>{openDrawer()}}>
+          <TouchableOpacity
+            onPress={() => {
+              openDrawer();
+            }}>
             <Ionicons name="menu" style={styles.iconStyle} />
           </TouchableOpacity>
         </View>

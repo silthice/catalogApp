@@ -2,9 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import {
   StyleSheet,
   View,
-  Button,
   SafeAreaView,
-  FlatList,
   Text,
   TouchableOpacity,
   ImageBackground,
@@ -12,9 +10,8 @@ import {
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {globalStyles} from '../utils/style.js';
-import {getAnimeList, getAnimeDetail} from '../services/api.js';
+import {getAnimeDetail} from '../services/api.js';
 import {useDispatch, useSelector} from 'react-redux';
-import {animeType} from '../utils/constant.js';
 import allActions from '../redux/actions/index.js';
 import Spinner from 'react-native-loading-spinner-overlay/lib';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -38,16 +35,12 @@ const AnimeDetailScreen = ({route}) => {
   }, []);
 
   useEffect(() => {
-    console.log('useeffect check favourite list', favouriteList);
-
-    // if (favouriteList && favouriteList.length > 0) {
-    const found = favouriteList.find(element => element.mal_id == animeId);
+    const found = favouriteList.find(element => element.mal_id === animeId);
     if (found) {
       setIsFavorite(true);
     } else {
       setIsFavorite(false);
     }
-    // }
   }, [favouriteList]);
 
   function getData() {
@@ -58,15 +51,12 @@ const AnimeDetailScreen = ({route}) => {
     getAnimeDetail(dispatch, animeId)
       .then(res => {
         if (res) {
-          // console.log('check res here', res);
           setAnimeDetails(res);
-          // dispatch(allActions.catalogActions.appendAiringList(res));
-          // setSpinnerVisible(false);
         }
         setSpinnerVisible(false);
       })
       .catch(err => {
-        // console.log('getPokemonList error', err);
+        console.log('get anime detail error', err);
         setSpinnerVisible(false);
       });
   }
@@ -78,9 +68,9 @@ const AnimeDetailScreen = ({route}) => {
 
   function getTabStyle(val) {
     return {
-      color: val == tabIndex ? '#fff' : 'lightgrey',
-      fontSize: val == tabIndex ? 20 : 18,
-      fontWeight: val == tabIndex ? 'bold' : 'normal'
+      color: val === tabIndex ? '#fff' : 'lightgrey',
+      fontSize: val === tabIndex ? 20 : 18,
+      fontWeight: val === tabIndex ? 'bold' : 'normal'
     };
   }
 
@@ -88,7 +78,7 @@ const AnimeDetailScreen = ({route}) => {
     return (
       <View
         style={{
-          height: tabIndex == val ? 3 : 0,
+          height: tabIndex === val ? 3 : 0,
           width: 100,
           borderRadius: 5,
           marginTop: 5,
@@ -162,7 +152,7 @@ const AnimeDetailScreen = ({route}) => {
   }
 
   function renderContent() {
-    if (tabIndex == 1) {
+    if (tabIndex === 1) {
       return renderOtherDetails();
     }
 
@@ -226,15 +216,15 @@ const AnimeDetailScreen = ({route}) => {
       return null;
     }
 
-    if (val == 'type' && animeDetails.type) {
+    if (val === 'type' && animeDetails.type) {
       return <Text style={styles.generalValue}>{animeDetails.type}</Text>;
     }
 
-    if (val == 'year' && animeDetails.year) {
+    if (val === 'year' && animeDetails.year) {
       return <Text style={styles.generalValue}>{animeDetails.year}</Text>;
     }
 
-    if (val == 'season' && animeDetails.season) {
+    if (val === 'season' && animeDetails.season) {
       return (
         <Text style={[styles.generalValue, {textTransform: 'capitalize'}]}>
           {animeDetails.season}
@@ -242,71 +232,77 @@ const AnimeDetailScreen = ({route}) => {
       );
     }
 
-    if (val == 'episodes' && animeDetails.episodes) {
+    if (val === 'episodes' && animeDetails.episodes) {
       return <Text style={styles.generalValue}>{animeDetails.episodes}</Text>;
     }
 
-    if (val == 'popularity' && animeDetails.popularity) {
+    if (val === 'popularity' && animeDetails.popularity) {
       return <Text style={[styles.generalValue, {fontSize: 20}]}>#{animeDetails.popularity}</Text>;
     }
 
-    if (val == 'score' && animeDetails.score) {
+    if (val === 'score' && animeDetails.score) {
       return <Text style={[styles.generalValue, {fontSize: 20}]}>{animeDetails.score}</Text>;
     }
 
-    if (val == 'rank' && animeDetails.rank) {
+    if (val === 'rank' && animeDetails.rank) {
       return <Text style={[styles.generalValue, {fontSize: 20}]}>#{animeDetails.rank}</Text>;
     }
 
-    if (val == 'rating' && animeDetails.rating) {
+    if (val === 'rating' && animeDetails.rating) {
       return <Text style={[styles.generalValue, {}]}>{animeDetails.rating}</Text>;
     }
 
-    if (val == 'status' && animeDetails.status) {
+    if (val === 'status' && animeDetails.status) {
       return <Text style={[styles.generalValue, {}]}>{animeDetails.status}</Text>;
     }
 
-    if (val == 'synopsis') {
-      return <Text style={[styles.generalValue, {}]}>{animeDetails.synopsis == '' || animeDetails.synopsis == null ? '-' : animeDetails.synopsis }</Text>;
+    if (val === 'synopsis') {
+      return (
+        <Text style={[styles.generalValue, {}]}>
+          {animeDetails.synopsis === '' || animeDetails.synopsis === null
+            ? '-'
+            : animeDetails.synopsis}
+        </Text>
+      );
     }
 
-    if (val == 'aired') {
+    if (val === 'aired') {
       return <Text style={[styles.generalValue, {}]}>{animeDetails.aired.string}</Text>;
     }
 
-    if (val == 'genre') {
-      let genres = animeDetails.genres;
+    if (val === 'genre') {
+      const genres = animeDetails.genres;
 
       if (genres.length > 0) {
         let value = '';
 
         genres.forEach((genre, index) => {
-          value = value + (index == 0 ? '' : ', ') + genre.name;
+          value = value + (index === 0 ? '' : ', ') + genre.name;
         });
         return <Text style={[styles.generalValue, {}]}>{value}</Text>;
       }
     }
 
-    if (val == 'studio') {
-      let studio = animeDetails.studios;
+    if (val === 'studio') {
+      const studio = animeDetails.studios;
       if (studio.length > 0) {
         let value = '';
 
         studio.forEach((studio, index) => {
-          value = value + (index == 0 ? '' : ', ') + studio.name;
+          value = value + (index === 0 ? '' : ', ') + studio.name;
         });
         return <Text style={[styles.generalValue, {}]}>{value}</Text>;
       }
     }
 
-    if (val == 'demographics') {
-      let demographics = animeDetails.demographics;
+    if (val === 'demographics') {
+      const demographics = animeDetails.demographics;
 
       if (demographics.length > 0) {
         let value = '';
 
         demographics.forEach((demographic, index) => {
-          value = value + (index == 0 ? '' : ', ') + demographic.name;
+          value = value + (index === 0 ? '' : ', ') + demographic.name;
         });
         return <Text style={[styles.generalValue, {}]}>{value}</Text>;
       }
@@ -316,9 +312,6 @@ const AnimeDetailScreen = ({route}) => {
   }
 
   function favDidPressed() {
-    // setIsFavorite(!isFavorite);
-    // dispatch(allActions.catalogActions.appendFavouriteList([animeDetails]));
-
     if (isFavorite) {
       return dispatch(
         allActions.catalogActions.setFavouriteList(
