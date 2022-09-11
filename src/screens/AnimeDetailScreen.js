@@ -94,8 +94,7 @@ const AnimeDetailScreen = ({route}) => {
             borderRadius={7.5}
             style={styles.image}
             source={{uri: animeImg}}
-            defaultSource={require('../assets/default-img.jpg')}
-            ></ImageBackground>
+            defaultSource={require('../assets/default-img.jpg')}></ImageBackground>
         </View>
         <View style={styles.detailsContainer}>
           <View style={globalStyles.flexDirectionRow}>
