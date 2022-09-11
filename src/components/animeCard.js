@@ -51,9 +51,9 @@ const CardComponent = props => {
               <Text style={styles.rank}>{animeRank || 'TBC'}</Text>
             </View>
 
-            <View style={globalStyles.flexDirectionRow}>
+            <View style={[globalStyles.flexDirectionRow, {width: '85%'}]}>
               <Text style={styles.label}>Rating: </Text>
-              <Text style={styles.rating}>{animeRating || 'TBC'}</Text>
+              <Text numberOfLines={1} style={styles.rating}>{animeRating || 'TBC'}</Text>
             </View>
 
             <View style={globalStyles.flexDirectionRow}>
@@ -97,17 +97,16 @@ const styles = StyleSheet.create({
     height: 50
   },
   otherDetailsContainer: {
-    marginTop: 5
+    marginTop: 5,
   },
   image: {
-    height: '90%',
+    height: 160,
     width: '90%',
     borderRadius: 5
   },
   detailStyle: {
     width: '70%',
-    padding: 10,
-    paddingHorizontal: 5
+    padding: 5,
   },
   title: {
     fontWeight: 'bold',

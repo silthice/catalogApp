@@ -13,9 +13,7 @@ const CustomDrawer = props => {
         <View style={styles.underline}></View>
       </View>
       <View style={styles.drawerContainer}>
-        <DrawerContentScrollView {...props}>
           <DrawerItemList {...props}></DrawerItemList>
-        </DrawerContentScrollView>
       </View>
     </SafeAreaView>
   );
@@ -23,7 +21,8 @@ const CustomDrawer = props => {
 
 const styles = StyleSheet.create({
   headerContainer: {
-    paddingHorizontal: 15
+    paddingHorizontal: 15,
+    height: 60
   },
   appLabel: {
     fontSize: 20,
@@ -34,11 +33,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     width: '100%',
     borderColor: '#fff',
-    marginVertical: 15
+    marginVertical: 20
   },
   drawerContainer: {
     flex: 1,
-    marginTop: -screenHeight * 0.055
+    marginTop: 5
   }
 });
 

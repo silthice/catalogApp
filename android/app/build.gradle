@@ -79,10 +79,11 @@ import org.apache.tools.ant.taskdefs.condition.Os
  */
 
 project.ext.react = [
-    enableHermes: false,  // clean and rebuild if changing
+    enableHermes: true,  // clean and rebuild if changing
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -222,6 +223,12 @@ android {
         }
     }
     signingConfigs {
+        release {
+            storeFile file('catalogapp.keystore')
+            storePassword 'giap1234'
+            keyAlias 'giap1234'
+            keyPassword 'giap1234'
+        }
         debug {
             storeFile file('debug.keystore')
             storePassword 'android'

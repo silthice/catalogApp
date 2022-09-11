@@ -46,7 +46,7 @@ const FavouriteScreen = () => {
           flex: 1,
           justifyContent: 'center',
           alignItems: 'center',
-          height: screenHeight * 0.8
+          marginTop: screenHeight * 0.425
         }}>
         <Text style={{color: '#fff'}}>Add more anime to favourite list !</Text>
       </View>
@@ -85,10 +85,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#0E0E23',
-    paddingHorizontal: 10
   },
   headerContainer: {
-    height: screenHeight * 0.035,
+    height: 40,
     paddingHorizontal: 25,
     flexDirection: 'row',
     alignItems: 'center'

@@ -128,7 +128,7 @@ const AiringScreen = () => {
         <View
           style={{
             flex: 1,
-            height: screenHeight * 0.7,
+            marginTop: screenHeight * 0.425,
             justifyContent: 'center',
             alignItems: 'center'
           }}>
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#0E0E23'
   },
   headerContainer: {
-    height: screenHeight * 0.035,
+    height: 40,
     paddingHorizontal: 25,
     flexDirection: 'row',
     alignItems: 'center'
