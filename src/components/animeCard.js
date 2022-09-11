@@ -47,17 +47,17 @@ const CardComponent = props => {
           <View style={styles.otherDetailsContainer}>
             <View style={globalStyles.flexDirectionRow}>
               <Text style={styles.label}>Year: </Text>
-              <Text style={styles.year}>{animeYear ? animeYear : 'To Be Confirmed'}</Text>
+              <Text style={styles.year}>{animeYear ? animeYear : 'TBC'}</Text>
             </View>
 
             <View style={globalStyles.flexDirectionRow}>
               <Text style={styles.label}>Rank: </Text>
-              <Text style={styles.rank}>{animeRank ? animeRank : 'To Be Confirmed'}</Text>
+              <Text style={styles.rank}>{animeRank ? animeRank : 'TBC'}</Text>
             </View>
 
             <View style={globalStyles.flexDirectionRow}>
               <Text style={styles.label}>Rating: </Text>
-              <Text style={styles.rating}>{animeRating ? animeRating : 'To Be Confirmed'}</Text>
+              <Text style={styles.rating}>{animeRating ? animeRating : 'TBC'}</Text>
             </View>
 
             <View style={globalStyles.flexDirectionRow}>
@@ -68,7 +68,7 @@ const CardComponent = props => {
                   <Text style={styles.score}> / 10</Text>
                 </View>
               ) : (
-                <Text style={styles.score}> To Be Confirmed</Text>
+                <Text style={styles.score}> TBC</Text>
               )}
             </View>
           </View>

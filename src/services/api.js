@@ -42,6 +42,29 @@ export const getAnimeDetail = async (dispatch, id) => {
     });
 };
 
+export const searchAnimeList = async (dispatch, offset, type, searchText) => {
+
+  const url = `https://api.jikan.moe/v4/anime?page=${offset}&limit=5&filter=${type}&q=${searchText}`;
+
+  return fetch(url, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(response => response.json())
+    .then(json => {
+      //   console.log('check json here', json)
+      return json.data;
+    })
+    .catch(err => {
+      console.log('get animet list err', err);
+    });
+};
+
+
+
 const asyncLoop = async (dispatch, newPokemonList) => {
   const allResults = [];
 

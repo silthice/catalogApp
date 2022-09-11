@@ -23,13 +23,23 @@ const catalog = (state = INITIAL_STATE, action) => {
         upcomingList: [...state.upcomingList, ...action.payload]
       };
 
-    case 'RESET_ANIME_LIST':
+    case 'RESET_UPCOMING_LIST':
       return {
         ...state,
         upcomingList: [],
-        completedList: [],
-        airingList: []
       };
+
+      case 'RESET_COMPLETED_LIST':
+        return {
+          ...state,
+          completedList: [],
+        };
+
+        case 'RESET_AIRING_LIST':
+          return {
+            ...state,
+            airingList: []
+          };
     case 'APPEND_FAVOURITE_LIST':
       return {
         ...state,

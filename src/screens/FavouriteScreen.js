@@ -45,6 +45,15 @@ const FavouriteScreen = () => {
     navigation.openDrawer()
   }
 
+  function renderEmptyList(){
+    return (
+
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', height: screenHeight*.8}}>
+        <Text style={{color: '#fff'}}>Add more anime to favourite list !</Text>
+      </View>
+    )
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
@@ -61,6 +70,7 @@ const FavouriteScreen = () => {
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
           data={favouriteList}
+          ListEmptyComponent={renderEmptyList}
           renderItem={({item, index}) => renderAnimeCard(item, index)}
         />
       </View>

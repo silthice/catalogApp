@@ -267,7 +267,7 @@ const AnimeDetailScreen = ({route}) => {
     }
 
     if (val == 'synopsis') {
-      return <Text style={[styles.generalValue, {}]}>{animeDetails.synopsis}</Text>;
+      return <Text style={[styles.generalValue, {}]}>{animeDetails.synopsis == '' || animeDetails.synopsis == null ? '-' : animeDetails.synopsis }</Text>;
     }
 
     if (val == 'aired') {

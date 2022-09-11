@@ -1,9 +1,19 @@
 import {useNavigation} from '@react-navigation/native';
-import {StyleSheet, View, Button, SafeAreaView, FlatList, Text, Dimensions} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Button,
+  SafeAreaView,
+  FlatList,
+  Text,
+  Dimensions,
+  TextInput,
+  Alert
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {globalStyles} from '../utils/style.js';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {getAnimeList} from '../services/api.js';
+import {getAnimeList, searchAnimeList} from '../services/api.js';
 import {useDispatch, useSelector} from 'react-redux';
 import {animeType} from '../utils/constant.js';
 import allActions from '../redux/actions/index.js';
@@ -19,12 +29,13 @@ const UpcomingScreen = () => {
 
   const [pageOffset, setPageOffset] = useState(1);
   const [spinnerVisible, setSpinnerVisible] = useState(false);
+  const [searchText, setSearchText] = useState(null);
   const animeList = useSelector(state => state.catalogState.upcomingList);
 
   useEffect(() => {
     // initial 5 anime
     if (animeList && animeList.length < 1) {
-      getData(pageOffset);
+      getData(pageOffset, searchText);
     }
 
     // console.log('check anime list', animeList);
@@ -34,43 +45,113 @@ const UpcomingScreen = () => {
     navigation.openDrawer();
   }
 
-  function getData(offset) {
-    console.log('getData');
+  function getData(offset, searchText) {
+    console.log('getData', offset, searchText);
 
     setSpinnerVisible(true);
 
-    getAnimeList(dispatch, offset, animeType.UPCOMING)
-      .then(res => {
-        if (res) {
-          // console.log('check res here', res)
-          dispatch(allActions.catalogActions.appendUpcomingList(res));
-          // setSpinnerVisible(false);
-        }
-        setSpinnerVisible(false);
-      })
-      .catch(err => {
-        // console.log('getPokemonList error', err);
-        setSpinnerVisible(false);
-      });
+    if (searchText == null) {
+      getAnimeList(dispatch, offset, animeType.UPCOMING)
+        .then(res => {
+          if (res) {
+            // console.log('check res here', res)
+            dispatch(allActions.catalogActions.appendUpcomingList(res));
+            // setSpinnerVisible(false);
+          }
+          setSpinnerVisible(false);
+        })
+        .catch(err => {
+          // console.log('getPokemonList error', err);
+          setSpinnerVisible(false);
+        });
+    } else {
+      searchAnimeList(dispatch, offset, animeType.UPCOMING, searchText)
+        .then(res => {
+          if (res) {
+            // console.log('check res here', res)
+            dispatch(allActions.catalogActions.appendUpcomingList(res));
+            // setSpinnerVisible(false);
+          }
+          setSpinnerVisible(false);
+        })
+        .catch(err => {
+          // console.log('getPokemonList error', err);
+          setSpinnerVisible(false);
+        });
+    }
   }
 
   function onLoadMore() {
     console.log('load more');
     setPageOffset(pageOffset + 1);
   }
-  
+
   function renderAnimeCard(item, index) {
-    return <Card animeItem={item}></Card>;
+    return (
+      <View style={{marginBottom: index === animeList.length - 1 ? screenHeight * 0.115 : 0}}>
+        <Card animeItem={item}></Card>
+      </View>
+    );
   }
 
   useEffect(() => {
     if (pageOffset !== 1) {
-      getData(pageOffset);
+      getData(pageOffset, searchText);
     }
   }, [pageOffset]);
 
-  function openDrawer(){
-    navigation.openDrawer()
+  function openDrawer() {
+    navigation.openDrawer();
+  }
+
+  function searchAnime() {
+    if (searchText === '' || searchText === null) {
+      Alert.alert('cannot empty');
+      return;
+    }
+    setPageOffset(1);
+    dispatch(allActions.catalogActions.resetUpcomingList());
+  }
+
+  function clearSearch() {
+    setPageOffset(1);
+    setSearchText(null);
+    dispatch(allActions.catalogActions.resetUpcomingList());
+  }
+
+  function renderClearButton() {
+    if (searchText) {
+      return (
+        <TouchableOpacity
+          onPress={() => {
+            clearSearch();
+          }}>
+          <Ionicons name="close" style={styles.clearIconStyle} />
+        </TouchableOpacity>
+      );
+    }
+    return null;
+  }
+
+  function renderEmptyList() {
+    if (!spinnerVisible && pageOffset == 1) {
+      return (
+        <View
+          style={{
+            flex: 1,
+            height: screenHeight * 0.7,
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
+          <Text style={{color: '#fff'}}>Opps, no anime(s) found with the keyword.</Text>
+          <Text style={{color: '#fff', marginTop: 5}}>
+            Please try again to search with another keyword.
+          </Text>
+        </View>
+      );
+    }
+
+    return null;
   }
 
   return (
@@ -79,10 +160,31 @@ const UpcomingScreen = () => {
         <Text style={globalStyles.headerLabel}>Upcoming Anime List</Text>
 
         <View style={styles.iconContainer}>
-          <TouchableOpacity onPress={()=>{openDrawer()}}>
+          <TouchableOpacity
+            onPress={() => {
+              openDrawer();
+            }}>
             <Ionicons name="menu" style={styles.iconStyle} />
           </TouchableOpacity>
         </View>
+      </View>
+
+      <View style={styles.searchBarContainer}>
+        <Ionicons name="search" style={styles.searchIconStyle} />
+        <TextInput
+          style={styles.searchTextContainer}
+          placeholder={'Search Anime'}
+          placeholderTextColor={'#c5c5c5'}
+          returnKeyType={'search'}
+          onChangeText={val => {
+            setSearchText(val);
+          }}
+          value={searchText === '' || searchText === null ? '' : searchText}
+          onSubmitEditing={() => {
+            searchAnime();
+          }}
+        />
+        {renderClearButton()}
       </View>
       <View style={{paddingHorizontal: 10}}>
         <FlatList
@@ -90,6 +192,7 @@ const UpcomingScreen = () => {
           showsVerticalScrollIndicator={false}
           initialNumToRender={5} // default 10
           data={animeList}
+          ListEmptyComponent={renderEmptyList}
           renderItem={({item, index}) => renderAnimeCard(item, index)}
           onEndReached={() => {
             onLoadMore();
@@ -121,6 +224,29 @@ const styles = StyleSheet.create({
   iconStyle: {
     fontSize: 25,
     color: '#F5F5F5'
+  },
+  searchIconStyle: {
+    fontSize: 25,
+    color: '#c5c5c5'
+  },
+  clearIconStyle: {
+    fontSize: 25,
+    color: '#c5c5c5'
+  },
+  searchTextContainer: {
+    flex: 1,
+    color: '#fff',
+    marginLeft: 10
+  },
+  searchBarContainer: {
+    marginTop: 15,
+    height: 40,
+    backgroundColor: 'grey',
+    marginHorizontal: 25,
+    borderRadius: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 10
   }
 });
 
