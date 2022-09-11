@@ -16,7 +16,6 @@ import allActions from '../redux/actions/index.js';
 import Spinner from 'react-native-loading-spinner-overlay/lib';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
 const AnimeDetailScreen = ({route}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -94,7 +93,9 @@ const AnimeDetailScreen = ({route}) => {
           <ImageBackground
             borderRadius={7.5}
             style={styles.image}
-            source={{uri: animeImg}}></ImageBackground>
+            source={{uri: animeImg}}
+            defaultSource={require('../assets/default-img.jpg')}
+            ></ImageBackground>
         </View>
         <View style={styles.detailsContainer}>
           <View style={globalStyles.flexDirectionRow}>

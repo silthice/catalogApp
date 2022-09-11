@@ -31,6 +31,7 @@ const CardComponent = props => {
             source={{
               uri: animeImg
             }}
+            defaultSource={require('../assets/default-img.jpg')}
           />
         </View>
         <View style={styles.detailStyle}>
